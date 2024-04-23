@@ -95,6 +95,7 @@ disp(['Errors: ', num2str(errors)]);
 disp(['Errors Per Million (EPM): ', num2str(EPM)]);
 
 
+% Generates noisy voltages that the receiver would measure when a transmitter tries to send the bits from function input
 function voltages = generate_voltages(bits, pre_cursors, post_cursors, main_cursor)
     % Initialize voltages to zero
     voltages = zeros(1, length(bits));
@@ -103,7 +104,8 @@ function voltages = generate_voltages(bits, pre_cursors, post_cursors, main_curs
     padding_length = max(length(pre_cursors), length(post_cursors));
     start_idx = padding_length + 1;
     end_idx = length(voltages) - padding_length;
-
+    
+    % Loop over the none pad part
     for n = start_idx:end_idx
         % Add the effect of the main cursor
         voltages(n) = voltages(n) + bits(n) * main_cursor;
